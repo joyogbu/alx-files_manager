@@ -1,5 +1,6 @@
 import { createClient } from 'redis';
-
+//import util from 'util'
+let client;
 class RedisClient {
 	constructor() {
 		this.client = createClient();
@@ -10,16 +11,36 @@ class RedisClient {
 		//await this.client.connect();
 	}
 	isAlive() {
-		/*this.client.on('connect', () => {
-			return true
-		});*/
-		return true;
+		this.client.on('connect', () => {
+			const connected = true;
+			return(connected)
+		});
 	}
-	async get(key) {
-		return this.client.get(key);
+	get (key) {
+	  return new Promise((resolve, reject) => {
+	     if (!this.client) reject(new Error('No redis instance found'));
+	     this.client.get(key, (err, reply) => {
+		     if (err) return reject(err)
+		     if (reply == null){
+			     return resolve(null);
+		     }
+		   
+		resolve(reply)
+	     })
+	  })
 	}
+	/*async get(key) {
+	    this.client.get(key, async (err, reply) => {
+	      if(err) {
+		return(err);
+	      }
+	      await (reply);
+	  });
+	}*/
 	async set(key, value, time) {
-		this.client.set(key, value);
+		this.client.set(key, value, (err, reply) => {
+		return reply;
+		});
 			//.then(function(res) {
 		this.client.expire(key, time)
 		
