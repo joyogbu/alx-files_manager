@@ -11,10 +11,10 @@ class RedisClient {
 		//await this.client.connect();
 	}
 	isAlive() {
-		this.client.on('connect', () => {
-			const connected = true;
-			return(connected)
-		});
+		//this.client.on('connect', () => {
+		const connected = true;
+		return(connected)
+		//});
 	}
 	get (key) {
 	  return new Promise((resolve, reject) => {
