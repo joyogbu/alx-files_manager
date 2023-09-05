@@ -1,17 +1,17 @@
 import { MongoClient } from 'mongodb';
 //import os
 let connected;
-/*class DBClient {
-  constructor() {*/
+class DBClient {
+  constructor() {
     connected = false;
     const host = process.env.DB_HOST || 'localhost'
     const port = process.env.DB_PORT || 27017
     const database = process.env.DB_DATABASE || 'file_manager'
     const uri = "mongodb://'+ host + ':' + port + '/' + database";
-class DBClient {
-  constructor() {
+//class DBClient {
+  //constructor() {
     this.client = new MongoClient(uri);
-	  //await client.connect()
+    this.client.connect()
   }
 
   isAlive() {
