@@ -3,9 +3,10 @@ import { createClient } from 'redis';
 let connected;
 class RedisClient {
   constructor() {
-    connected = false;
+    //connected = false;
     this.client = createClient();
     this.client.on('error', (err) => {
+      connected = false
       console.log('Redis client not connected to the server', err);
     });
   }
